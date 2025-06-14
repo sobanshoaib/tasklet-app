@@ -22,19 +22,24 @@ class RegisterViewModel: ObservableObject {
             
             guard let user = result?.user else {return}
             
+            let userModel = UserModel(id: user.uid,
+                                      firstName: firstName,
+                                      lastName: lastName,
+                                      email: email,
+                                      createdAt: Date())
+            
             let db = Firestore.firestore()
-            db.collection("users").document(user.uid).setData([
-                "firstName": firstName,
-                "lastName": lastName,
-                "email": email,
-                "createdAt": Timestamp()
-            ]) { error in
-                if let error = error {
-                    print("firestore error")
-                } else {
-                    print("registered success")
-                    self.isRegistered = true
+            do {
+                try db.collection("users").document(user.uid).setData(from: userModel) { error in
+                    if error != nil {
+                        print("firestore error")
+                    } else {
+                        print("registered success")
+                        self.isRegistered = true
+                    }
                 }
+            } catch {
+                print("encoding error")
             }
             
         }
