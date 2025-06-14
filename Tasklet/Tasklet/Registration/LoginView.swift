@@ -53,7 +53,7 @@ struct LoginView: View {
                         .fill(Color.teal))
                     .padding(.bottom)
                     
-                    NavigationLink(destination: HomeView(), isActive: $viewModel.isLoggedIn) {
+                    NavigationLink(destination: MainTabView(), isActive: $viewModel.isLoggedIn) {
                         EmptyView()
                     }
                     
