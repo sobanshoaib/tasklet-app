@@ -62,6 +62,7 @@ fastlane/Preview.html
 fastlane/screenshots/**/*.png
 fastlane/test_output
 Tasklet/GoogleService-Info.plist
+Tasklet/Tasklet/GoogleService-Info.plist
 .DS_Store
 DerivedData/
 *.log
