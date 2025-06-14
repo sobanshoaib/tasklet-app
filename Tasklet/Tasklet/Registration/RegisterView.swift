@@ -72,15 +72,16 @@ struct RegisterView: View {
                         } label: {
                             Text("Login")
                                 .foregroundStyle(.white)
+                                .underline()
                         }
                     }
                     NavigationLink(destination: LoginView(), isActive: $clickLogin) {
                         EmptyView()
                     }
 
-                    
                 }
             }
+            .navigationBarBackButtonHidden(true)
             
         }
         

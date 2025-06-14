@@ -9,9 +9,11 @@ import SwiftUI
 
 struct LoginView: View {
     
+    @StateObject private var viewModel = RegisterViewModel()
     @State private var email = ""
     @State private var password = ""
-    @StateObject private var viewModel = RegisterViewModel()
+    @State private var clickRegister = false
+    
     
     
     var body: some View {
@@ -49,13 +51,30 @@ struct LoginView: View {
                     .frame(width: 100, height: 50)
                     .background(RoundedRectangle(cornerRadius: 12)
                         .fill(Color.teal))
+                    .padding(.bottom)
                     
                     NavigationLink(destination: HomeView(), isActive: $viewModel.isLoggedIn) {
                         EmptyView()
                     }
                     
+                    HStack {
+                        Text("Don't have an account?")
+                        Button {
+                            clickRegister = true
+                        } label: {
+                            Text("Register")
+                                .foregroundStyle(.white)
+                                .underline()
+                        }
+                    }
+                    NavigationLink(destination: RegisterView(), isActive: $clickRegister) {
+                        EmptyView()
+                    }
+                    
+                    
                 }
             }
+            .navigationBarBackButtonHidden(true)
         }
     }
 }
