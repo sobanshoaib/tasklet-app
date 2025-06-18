@@ -8,8 +8,31 @@
 import SwiftUI
 
 struct ProfileView: View {
+    @StateObject private var profileviewmodel = ProfileVIewModel()
+    @State private var logoutApp = false
     var body: some View {
-        Text("Profile")
+        VStack {
+            if let user = profileviewmodel.user {
+                Image(systemName: "person.circle")
+                    .resizable()
+                    .frame(width: 100, height: 100)
+                Text("Name: \(user.firstName)")
+//                Text()
+            } else {
+                ProgressView("Loading")
+            }
+            Button {
+                logoutApp = true
+            } label: {
+                Text("Logout")
+            }
+            NavigationLink(destination: LoginView(), isActive: $logoutApp) {
+                EmptyView()
+            }
+        }
+        .onAppear {
+            profileviewmodel.getUserProfile()
+        }
     }
 }
 
