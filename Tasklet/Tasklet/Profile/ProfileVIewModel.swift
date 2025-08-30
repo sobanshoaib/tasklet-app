@@ -23,15 +23,18 @@ class ProfileVIewModel: ObservableObject {
         do {
             db.collection("users").document(userid).getDocument { snapshot, error in
                 if let error = error {
-                    print("error")
+                    print("user not fetched", error.localizedDescription)
                     return
                 }
                 
-                if let document = snapshot, document.exists {
-                    do {
-                        self.user = try document.data(as: UserModel.self)
-                    } catch {
-                        print("error encoding")
+                
+                if let document = snapshot {
+                    if document.exists {
+                        do {
+                            self.user = try document.data(as: UserModel.self)
+                        } catch {
+                            print("error encoding")
+                        }
                     }
                 }
             }

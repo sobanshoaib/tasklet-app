@@ -19,27 +19,28 @@ struct LoginView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                LinearGradient (colors: [.blue, .purple], startPoint: .topLeading, endPoint: .bottomTrailing)
+                Color("ArgentinianBlue")
                     .ignoresSafeArea()
                 VStack {
                     Text("Login to Tasklet")
-                        .foregroundStyle(.white)
-                        .font(.headline)
-                        .padding(.bottom)
+                        .foregroundStyle(.trueBlue)
+                        .fontWeight(.bold)
+                        .font(.largeTitle)
                     
                     LoginFieldView(loginPlaceholder: "Email", getInput: $email)
                         .autocapitalization(.none)
                         .keyboardType(.emailAddress)
                     HStack (alignment: .center){
                         SecureField("Password", text: $password)
-                            .foregroundStyle(.white)
+                            .foregroundStyle(.aqua)
+                            .fontWeight(.medium)
                             .multilineTextAlignment(.center)
                             .padding()
                     }
                     .frame(width: 300, height: 50)
                     .overlay(
                         RoundedRectangle(cornerRadius: 8)
-                            .stroke(Color.white, lineWidth: 2)
+                            .stroke(Color.aqua, lineWidth: 2)
                     )
                     .padding(.bottom)
                     
@@ -47,10 +48,11 @@ struct LoginView: View {
                         viewModel.loginUser(email: email, password: password)
                     } label: {
                         Text("Login")
+                            .foregroundStyle(.aqua)
                     }
                     .frame(width: 100, height: 50)
                     .background(RoundedRectangle(cornerRadius: 12)
-                        .fill(Color.teal))
+                        .fill(Color.trueBlue))
                     .padding(.bottom)
                     
                     NavigationLink(destination: MainTabView(), isActive: $viewModel.isLoggedIn) {
@@ -59,6 +61,7 @@ struct LoginView: View {
                     
                     HStack {
                         Text("Don't have an account?")
+                            .foregroundStyle(.plum)
                         Button {
                             clickRegister = true
                         } label: {
@@ -89,14 +92,15 @@ struct LoginFieldView: View {
     var body: some View {
         HStack (alignment: .center){
             TextField(loginPlaceholder, text: $getInput)
-                .foregroundStyle(.white)
+                .foregroundStyle(.aqua)
+                .fontWeight(.medium)
                 .multilineTextAlignment(.center)
                 .padding()
         }
         .frame(width: 300, height: 50)
         .overlay(
             RoundedRectangle(cornerRadius: 8)
-                .stroke(Color.white, lineWidth: 2)
+                .stroke(Color.aqua, lineWidth: 2)
         )
         .padding(.bottom)
     }

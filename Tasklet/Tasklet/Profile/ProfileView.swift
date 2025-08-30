@@ -16,8 +16,8 @@ struct ProfileView: View {
                 Image(systemName: "person.circle")
                     .resizable()
                     .frame(width: 100, height: 100)
-                Text("Name: \(user.firstName)")
-//                Text()
+                Text("Name: \(user.firstName) \(user.lastName)")
+                Text("Emai: \(user.email)")
             } else {
                 ProgressView("Loading")
             }

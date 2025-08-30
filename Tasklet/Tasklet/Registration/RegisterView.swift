@@ -19,15 +19,15 @@ struct RegisterView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                LinearGradient (colors: [.blue, .purple], startPoint: .topLeading, endPoint: .bottomTrailing)
+                Color("ArgentinianBlue")
                     .ignoresSafeArea()
                 VStack {
                     Text("Welcome to Tasklet!")
-                        .foregroundStyle(.white)
+                        .foregroundStyle(.trueBlue)
                         .fontWeight(.bold)
                         .font(.largeTitle)
                     Text("Please register below")
-                        .foregroundStyle(.white)
+                        .foregroundStyle(.trueBlue)
                         .font(.headline)
                         .padding(.bottom)
                     
@@ -39,27 +39,27 @@ struct RegisterView: View {
                     
                     HStack (alignment: .center){
                         SecureField("Password", text: $password)
-                            .foregroundStyle(.white)
+                            .foregroundStyle(.aqua)
+                            .fontWeight(.medium)
                             .multilineTextAlignment(.center)
                             .padding()
                     }
                     .frame(width: 300, height: 50)
                     .overlay(
                         RoundedRectangle(cornerRadius: 8)
-                            .stroke(Color.white, lineWidth: 2)
+                            .stroke(Color.aqua, lineWidth: 2)
                     )
                     .padding(.bottom)
-                        
-                    
+
                     Button {
                         viewModel.registerUser(firstName: firstName, lastName: lastName, email: email, password: password)
                     } label: {
                         Text("Register")
-                            .foregroundStyle(.blue)
+                            .foregroundStyle(.aqua)
                     }
                     .frame(width: 100, height: 50)
                     .background(RoundedRectangle(cornerRadius: 12)
-                        .fill(Color.teal))
+                        .fill(Color.trueBlue))
                     .padding(.bottom)
                     NavigationLink(destination: LoginView(), isActive: $viewModel.isRegistered) {
                         EmptyView()
@@ -67,6 +67,7 @@ struct RegisterView: View {
                     
                     HStack {
                         Text("Already have an account?")
+                            .foregroundStyle(.plum)
                         Button {
                             clickLogin = true
                         } label: {
@@ -78,6 +79,8 @@ struct RegisterView: View {
                     NavigationLink(destination: LoginView(), isActive: $clickLogin) {
                         EmptyView()
                     }
+                    
+                    
 
                 }
             }
@@ -98,14 +101,15 @@ struct RegisterFieldView: View {
     var body: some View {
         HStack (alignment: .center){
             TextField(registerPlaceholder, text: $getInput)
-                .foregroundStyle(.white)
+                .foregroundStyle(.aqua)
+                .fontWeight(.medium)
                 .multilineTextAlignment(.center)
                 .padding()
         }
         .frame(width: 300, height: 50)
         .overlay(
             RoundedRectangle(cornerRadius: 8)
-                .stroke(Color.white, lineWidth: 2)
+                .stroke(Color.aqua, lineWidth: 2)
         )
         .padding(.bottom)
     }

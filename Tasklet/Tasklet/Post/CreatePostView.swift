@@ -15,6 +15,8 @@ struct CreatePostView: View {
     @State private var postDescription = ""
     @State private var postPay = ""
     @State private var postButton = false
+    @State private var createPostId: String?
+    
     var body: some View {
         VStack (alignment: .center){
             CreatePostDetails(titlePlaceholder: "Title", getField: $postTitle)
@@ -23,11 +25,17 @@ struct CreatePostView: View {
             
             Button {
                 createPostVM.createPost(postTitle: postTitle, postDescription: postDescription, postPay: postPay)
-                postButton = true
+                {newestId in
+                    if let id = newestId {
+                        createPostId = id
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                            postButton = true
+                        }
+                    }}
             } label: {
                 Text("Post")
             }
-            NavigationLink(destination: ProfileView(), isActive: $postButton) {
+            NavigationLink(destination: EachPostView(postId: createPostId ?? ""), isActive: $postButton) {
                 EmptyView()
             }
         }
