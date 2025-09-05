@@ -15,7 +15,7 @@ struct ChatroomModel: Identifiable, Codable {
     var lastUpdated: Date
 }
 
-struct Message {
+struct Message: Identifiable, Codable {
     var id: String
     var chatRoom: String
     var userId: String

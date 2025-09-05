@@ -14,6 +14,7 @@ class CreatePostViewModel: ObservableObject {
     
     @Published var latesPost: PostModel?
     
+    
     func createPost(postTitle: String, postDescription: String, postPay: String, completion: @escaping (String?) -> Void) {
         
         //check user is logged in
@@ -22,6 +23,8 @@ class CreatePostViewModel: ObservableObject {
             completion(nil)
             return
         }
+        
+        print(user)
 
         
         //creates unique identifier
