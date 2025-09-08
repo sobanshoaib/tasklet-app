@@ -15,6 +15,7 @@ struct EachPostView: View {
         VStack {
             if let post = eachPostVM.post {
                 Text("Your post:")
+                Text("Author is: \(post.firstName)")
                 Text("Title is: \(post.title)")
                 Text("Description is: \(post.description)")
                 Text("Pay is: \(post.pay)")
@@ -26,7 +27,7 @@ struct EachPostView: View {
         .onAppear {
             if previewMode {
                 eachPostVM.post = PostModel(
-                    id: "sample", title: "previewposttitle", description: "postdescription", pay: "99", createdAt: Date(), userId: "randomid"
+                    id: "sample", title: "previewposttitle", description: "postdescription", pay: "99", createdAt: Date(), firstName: "john", userId: "randomid"
                 )
             } else {
                 eachPostVM.getPost(withId: postId)

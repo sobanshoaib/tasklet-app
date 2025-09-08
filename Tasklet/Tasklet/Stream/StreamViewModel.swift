@@ -12,6 +12,7 @@ import FirebaseFirestore
 class StreamViewModel: ObservableObject {
     @Published var allPosts: [PostModel] = []
     
+    //returns all the posts from firebase, regardless of who posted
     func getAllPosts() {
         
         let db = Firestore.firestore()

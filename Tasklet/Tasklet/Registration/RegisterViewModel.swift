@@ -14,6 +14,8 @@ class RegisterViewModel: ObservableObject {
     
     @Published var isLoggedIn = false
     @Published var isRegistered = false
+    
+    //registers a user in firebase
     func registerUser(firstName: String, lastName: String, email: String, password: String) {
         Auth.auth().createUser(withEmail: email, password: password) { result, error in
             if error != nil {
@@ -45,6 +47,8 @@ class RegisterViewModel: ObservableObject {
         }
     }
     
+    
+    //logs a user in
     func loginUser(email: String, password: String) {
         Auth.auth().signIn(withEmail: email, password: password) { result, error in
             if error != nil {

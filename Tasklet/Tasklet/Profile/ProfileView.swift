@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct ProfileView: View {
-    @StateObject private var profileviewmodel = ProfileVIewModel()
+    @StateObject private var userService = UserService.shared
     @State private var logoutApp = false
     var body: some View {
         VStack {
-            if let user = profileviewmodel.user {
+            if let user = userService.user {
                 Image(systemName: "person.circle")
                     .resizable()
                     .frame(width: 100, height: 100)
@@ -31,7 +31,13 @@ struct ProfileView: View {
             }
         }
         .onAppear {
-            profileviewmodel.getUserProfile()
+            UserService.shared.getUserProfile { user in
+                if let user = user {
+                    print("user loader.")
+                } else {
+                    print("user failed to load.")
+                }
+            }
         }
     }
 }

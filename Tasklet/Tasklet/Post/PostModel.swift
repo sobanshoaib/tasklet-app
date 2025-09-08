@@ -14,5 +14,6 @@ struct PostModel: Identifiable, Codable {
     var description: String
     var pay: String
     var createdAt: Date
+    var firstName: String
     var userId: String
 }
