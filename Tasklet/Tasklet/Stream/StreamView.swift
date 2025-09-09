@@ -22,7 +22,7 @@ struct StreamView: View {
                 }
                 Spacer()
 
-                NavigationLink(destination: EachPostView(postId: post.id)) {
+                NavigationLink(destination: EachPostView(chatOption: true, postId: post.id)) {
                     Image(systemName: "bubble.left.and.bubble.right")
                     EmptyView()
                 }

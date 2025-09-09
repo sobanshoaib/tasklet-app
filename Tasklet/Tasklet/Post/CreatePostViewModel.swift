@@ -12,7 +12,7 @@ import FirebaseAuth
 
 class CreatePostViewModel: ObservableObject {
     
-    @Published var latesPost: PostModel?
+    @Published var latestPost: PostModel?
     
     
     func createPost(postTitle: String, postDescription: String, postPay: String, completion: @escaping (String?) -> Void) {
@@ -54,7 +54,7 @@ class CreatePostViewModel: ObservableObject {
                         print("post stored successfully")
                         completion(postId)
                         DispatchQueue.main.async {
-                            self.latesPost = postModel
+                            self.latestPost = postModel
                         }
                     }
                 }

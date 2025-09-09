@@ -10,6 +10,7 @@ import SwiftUI
 struct EachPostView: View {
     @StateObject private var eachPostVM = EachPostViewModel()
     var previewMode: Bool = false
+    var chatOption: Bool
     let postId: String
     var body: some View {
         VStack {
@@ -21,6 +22,10 @@ struct EachPostView: View {
                 Text("Pay is: \(post.pay)")
             } else {
                 Text("Loading...")
+            }
+            
+            if (chatOption == true) {
+                Image(systemName: "bubble.left.and.bubble.right")
             }
         }
         .background(.red)
@@ -37,5 +42,5 @@ struct EachPostView: View {
 }
 
 #Preview {
-    EachPostView(previewMode: true, postId: "previewid")
+    EachPostView(previewMode: true, chatOption: false, postId: "previewid")
 }
