@@ -9,6 +9,8 @@ import SwiftUI
 
 struct EachPostView: View {
     @StateObject private var eachPostVM = EachPostViewModel()
+    @StateObject private var chatroomVM = ChatroomViewModel()
+    var secondUserId: String
     var previewMode: Bool = false
     var chatOption: Bool
     let postId: String
@@ -23,9 +25,18 @@ struct EachPostView: View {
             } else {
                 Text("Loading...")
             }
-            
+                
             if (chatOption == true) {
-                Image(systemName: "bubble.left.and.bubble.right")
+                Button {
+                    chatroomVM.createChatroom(userTwoId: eachPostVM.post?.userId ?? "123") {roomId in
+                        if let roomId = roomId {
+                            print("chatoom made. id is: \(roomId)")
+                        } else {
+                            print("chatoom failed to be created.")
+                        }}
+                } label: {
+                    Image(systemName: "bubble.left.and.bubble.right")
+                }
             }
         }
         .background(.red)
@@ -34,6 +45,8 @@ struct EachPostView: View {
                 eachPostVM.post = PostModel(
                     id: "sample", title: "previewposttitle", description: "postdescription", pay: "99", createdAt: Date(), firstName: "john", userId: "randomid"
                 )
+                
+                
             } else {
                 eachPostVM.getPost(withId: postId)
             }
@@ -42,5 +55,5 @@ struct EachPostView: View {
 }
 
 #Preview {
-    EachPostView(previewMode: true, chatOption: false, postId: "previewid")
+    EachPostView(secondUserId: "seconduser", previewMode: true, chatOption: false, postId: "previewid")
 }

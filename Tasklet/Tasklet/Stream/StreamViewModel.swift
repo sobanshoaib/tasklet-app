@@ -15,6 +15,7 @@ class StreamViewModel: ObservableObject {
     //returns all the posts from firebase, regardless of who posted
     func getAllPosts() {
         
+        print("stream of posts")
         let db = Firestore.firestore()
         db.collection("posts").order(by: "createdAt", descending: true).addSnapshotListener { snapshot, error in
             if let documents = snapshot?.documents {

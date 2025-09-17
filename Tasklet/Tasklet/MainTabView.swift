@@ -20,7 +20,7 @@ struct MainTabView: View {
                     Image(systemName: "plus.app")
                     Text("Post")
                 }
-            ChatRoomsView()
+            ChatroomsView()
                 .tabItem {
                     Image(systemName: "bubble.left.and.bubble.right")
                     Text("Chat")

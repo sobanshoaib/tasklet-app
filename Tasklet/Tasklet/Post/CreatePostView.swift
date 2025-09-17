@@ -35,7 +35,7 @@ struct CreatePostView: View {
             } label: {
                 Text("Post")
             }
-            NavigationLink(destination: EachPostView(chatOption: false, postId: createPostId ?? ""), isActive: $postButton) {
+            NavigationLink(destination: EachPostView(secondUserId: "", chatOption: false, postId: createPostId ?? ""), isActive: $postButton) {
                 EmptyView()
             }
         }

@@ -22,6 +22,7 @@ class EachPostViewModel: ObservableObject {
         let db = Firestore.firestore()
         
         do {
+            print("individual post")
             db.collection("posts").document(postId).getDocument { snapshot, error in
                 if let error = error {
                     print("post not found. ", error.localizedDescription)
