@@ -8,8 +8,21 @@
 import SwiftUI
 
 struct ChatroomsView: View {
+    @StateObject var chatroomVM = ChatroomViewModel()
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        List(chatroomVM.allchatrooms) { chatroom in
+            VStack {
+                Text("Convo is between: ")
+                Text(chatroom.userOne)
+                Text(chatroom.userTwo)
+                Text("Last updated: \(chatroom.lastUpdated)")
+            }
+            .background(.green)
+        }
+        .onAppear {
+            chatroomVM.getChatrooms()
+        }
     }
 }
 

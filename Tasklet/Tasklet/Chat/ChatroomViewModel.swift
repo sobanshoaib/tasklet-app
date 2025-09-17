@@ -13,6 +13,7 @@ import FirebaseFirestore
 class ChatroomViewModel: ObservableObject {
     
     @Published var latestRoom: ChatroomModel?
+    @Published var allchatrooms: [ChatroomModel] = []
     
     let db = Firestore.firestore()
     
@@ -123,6 +124,16 @@ class ChatroomViewModel: ObservableObject {
         }
         print("4")
     
+    }
+    
+    func getChatrooms() {
+        print("all the chatrooms")
+        db.collection("chatrooms").order(by: "lastUpdated", descending: true).addSnapshotListener { snapshot, error in
+            if let snapshot = snapshot?.documents {
+                self.allchatrooms = snapshot.compactMap { doc in
+                    try? doc.data(as: ChatroomModel.self)}
+            }
+        }
     }
     
 }
