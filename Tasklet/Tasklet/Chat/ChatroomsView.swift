@@ -11,17 +11,27 @@ struct ChatroomsView: View {
     @StateObject var chatroomVM = ChatroomViewModel()
     
     var body: some View {
-        List(chatroomVM.allchatrooms) { chatroom in
-            VStack {
-                Text("Convo is between: ")
-                Text(chatroom.userOne)
-                Text(chatroom.userTwo)
-                Text("Last updated: \(chatroom.lastUpdated)")
+        NavigationView {
+            List(chatroomVM.allchatrooms) { chatroom in
+                HStack {
+                    VStack {
+                        Text("Convo is between: ")
+                        Text(chatroom.userOne)
+                        Text(chatroom.userTwo)
+                        Text("Last updated: \(chatroom.lastUpdated)")
+                    }
+                    .background(.green)
+                    
+                    Spacer()
+                    
+                    NavigationLink(destination: ChatScreenView(idRoom: chatroom.id)) {
+                        Image(systemName: "message.fill")
+                    }
+                }
             }
-            .background(.green)
-        }
-        .onAppear {
-            chatroomVM.getChatrooms()
+            .onAppear {
+                chatroomVM.getChatrooms()
+            }
         }
     }
 }
