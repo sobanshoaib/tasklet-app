@@ -24,7 +24,7 @@ struct ChatroomsView: View {
                     
                     Spacer()
                     
-                    NavigationLink(destination: ChatScreenView(idRoom: chatroom.id)) {
+                    NavigationLink(destination: ChatScreenView(personID: "randomperson", idRoom: chatroom.id)) {
                         Image(systemName: "message.fill")
                     }
                 }
