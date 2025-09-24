@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import FirebaseAuth
 
 struct MainTabView: View {
     var body: some View {
@@ -20,11 +21,21 @@ struct MainTabView: View {
                     Image(systemName: "plus.app")
                     Text("Post")
                 }
-            ChatroomsView()
-                .tabItem {
-                    Image(systemName: "bubble.left.and.bubble.right")
-                    Text("Chat")
-                }
+            
+            if let thisUser = Auth.auth().currentUser {
+                ChatroomsView(iduser: thisUser.uid)
+                    .tabItem {
+                        Image(systemName: "bubble.left.and.bubble.right")
+                        Text("Chat")
+                    }
+            } else {
+                Text("User not logged in")
+                    .tabItem {
+                        Image(systemName: "bubble.left.and.bubble.right")
+                        Text("Chat")
+                    }
+            }
+            
             ProfileView()
                 .tabItem {
                     Image(systemName: "person")

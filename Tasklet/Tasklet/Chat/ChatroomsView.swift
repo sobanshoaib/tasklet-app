@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ChatroomsView: View {
     @StateObject var chatroomVM = ChatroomViewModel()
+    var iduser: String
     
     var body: some View {
         NavigationView {
@@ -24,7 +25,7 @@ struct ChatroomsView: View {
                     
                     Spacer()
                     
-                    NavigationLink(destination: ChatScreenView(personID: "randomperson", idRoom: chatroom.id)) {
+                    NavigationLink(destination: ChatScreenView(personID: iduser, idRoom: chatroom.id)) {
                         Image(systemName: "message.fill")
                     }
                 }
@@ -37,5 +38,5 @@ struct ChatroomsView: View {
 }
 
 #Preview {
-    ChatroomsView()
+    ChatroomsView(iduser: "randomperson")
 }
