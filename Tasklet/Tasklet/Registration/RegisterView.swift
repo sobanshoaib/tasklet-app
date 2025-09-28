@@ -19,7 +19,7 @@ struct RegisterView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Color("ArgentinianBlue")
+                Color("NavyBlue")
                     .ignoresSafeArea()
                 VStack {
                     Text("Welcome to Tasklet!")
@@ -67,7 +67,7 @@ struct RegisterView: View {
                     
                     HStack {
                         Text("Already have an account?")
-                            .foregroundStyle(.plum)
+
                         Button {
                             clickLogin = true
                         } label: {

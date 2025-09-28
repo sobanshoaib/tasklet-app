@@ -12,7 +12,7 @@ struct ProfileView: View {
     @State private var logoutApp = false
     var body: some View {
         ZStack {
-            Color("ArgentinianBlue")
+            Color("NavyBlue")
                 .ignoresSafeArea()
             VStack {
                 if let user = userService.user {

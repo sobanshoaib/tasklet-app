@@ -19,7 +19,7 @@ struct LoginView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Color("ArgentinianBlue")
+                Color("NavyBlue")
                     .ignoresSafeArea()
                 VStack {
                     Text("Login to Tasklet")
@@ -61,7 +61,8 @@ struct LoginView: View {
                     
                     HStack {
                         Text("Don't have an account?")
-                            .foregroundStyle(.plum)
+                            .foregroundStyle(.blue)
+
                         Button {
                             clickRegister = true
                         } label: {

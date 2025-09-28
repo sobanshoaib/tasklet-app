@@ -13,11 +13,12 @@ struct StreamView: View {
     
     var body: some View {
         ZStack {
-            Color("ArgentinianBlue")
+            Color("NavyBlue")
                 .ignoresSafeArea()
             ScrollView {
                 LazyVStack {
                     Text("Tasks Available")
+                        .foregroundStyle(.white)
                         .font(.system(size: 35, design: .rounded))
                         .tracking(4)
 
@@ -37,7 +38,7 @@ struct StreamView: View {
                             }
                             .padding()
                             .frame(width: 350, height: 350, alignment: .center)
-                            .background(Color.white)
+                            .background(.aqua)
                             .cornerRadius(15)
 
                         }
@@ -45,7 +46,7 @@ struct StreamView: View {
                     }
                     .padding(.bottom)
                 }
-                .background(Color("ArgentinianBlue"))
+                .background(Color("NavyBlue"))
                 .padding()
                 .onAppear {
                     streamVM.getAllPosts()
