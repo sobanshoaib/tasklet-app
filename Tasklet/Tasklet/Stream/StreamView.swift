@@ -12,27 +12,62 @@ struct StreamView: View {
     @StateObject var streamVM = StreamViewModel()
     
     var body: some View {
-        List(streamVM.allPosts) {post in
-            HStack {
-                VStack {
-                    Text(post.title)
-                    Text(post.description)
-                    Text(post.pay)
-                }
-                Spacer()
+        ZStack {
+            Color("ArgentinianBlue")
+                .ignoresSafeArea()
+            ScrollView {
+                LazyVStack {
+                    Text("Tasks Available")
+                        .font(.system(size: 35, design: .rounded))
+                        .tracking(4)
 
-                NavigationLink(destination: EachPostView(secondUserId: "", chatOption: true, postId: post.id)) {
-                    Image(systemName: "bubble.left.and.bubble.right")
-                    EmptyView()
-                }
+                    ForEach(streamVM.allPosts) {post in
+                        NavigationLink(destination: EachPostView(secondUserId: "", chatOption: true, postId: post.id)) {
+                            HStack {
+                                VStack(alignment: .center) {
+                                    Text(post.title)
+                                        .font(.system(size:40))
+                                        .fontWeight(.bold)
+                                    Text(post.description)
+                                        .font(.title)
+                                    Text(post.pay)
+                                        .font(.title2)
+                                }
+                                .foregroundStyle(Color.blue)
+                            }
+                            .padding()
+                            .frame(width: 350, height: 350, alignment: .center)
+                            .background(Color.white)
+                            .cornerRadius(15)
 
+                        }
+                        
+                    }
+                    .padding(.bottom)
+                }
+                .background(Color("ArgentinianBlue"))
+                .padding()
+                .onAppear {
+                    streamVM.getAllPosts()
+                }
+                
             }
-        }
-        .onAppear {
-            streamVM.getAllPosts()
+            .ignoresSafeArea(edges: .bottom)
+            .mask(
+                LinearGradient(
+                    gradient: Gradient(stops: [
+                        .init(color: .black, location: 0.0),
+                        .init(color: .black, location: 0.9),
+                        .init(color: .clear, location: 1.0)
+                    ]),
+                    startPoint: .top,
+                    endPoint: .bottom
+                )
+            )
         }
     }
 }
+
 
 #Preview {
     StreamView()

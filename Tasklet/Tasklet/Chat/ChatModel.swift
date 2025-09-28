@@ -10,8 +10,7 @@ import Foundation
 
 struct ChatroomModel: Identifiable, Codable {
     var id: String
-    var userOne: String
-    var userTwo: String
+    var users: [String]
     var lastUpdated: Date
 }
 

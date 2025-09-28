@@ -13,12 +13,13 @@ struct ChatroomsView: View {
     
     var body: some View {
         NavigationView {
+
             List(chatroomVM.allchatrooms) { chatroom in
                 HStack {
                     VStack {
                         Text("Convo is between: ")
-                        Text(chatroom.userOne)
-                        Text(chatroom.userTwo)
+                        Text(chatroom.users.first ?? "unknown")
+                        Text(chatroom.users.last ?? "unknown")
                         Text("Last updated: \(chatroom.lastUpdated)")
                     }
                     .background(.green)

@@ -41,10 +41,12 @@ class ChatroomViewModel: ObservableObject {
                 return
             }
             
+            let idOfUsers = [userOneId,userTwoId].sorted()
+            
             
             print("123")
             
-            self.checkChatroomExists(userOne: userOneId, userTwo: userTwoId) { result in
+            self.checkChatroomExists(between: idOfUsers) { result in
                 
                 print("456")
                 if let result = result {
@@ -56,7 +58,7 @@ class ChatroomViewModel: ObservableObject {
                 let chatroomId = UUID().uuidString
                 print("chatroom id is: \(chatroomId)")
                 
-                let chatroomModel = ChatroomModel(id: chatroomId, userOne: userOneId, userTwo: userTwoId, lastUpdated: Date())
+                let chatroomModel = ChatroomModel(id: chatroomId, users: idOfUsers, lastUpdated: Date())
                 
                 
                 do {
@@ -87,53 +89,55 @@ class ChatroomViewModel: ObservableObject {
         }
     }
     
-    func checkChatroomExists(userOne: String, userTwo: String, completion: @escaping (String?) -> Void) {
+    func checkChatroomExists(between idOfUsers: [String], completion: @escaping (String?) -> Void) {
         
         print("789")
-        let variationFirst = db.collection("chatrooms")
-            .whereField("userOne", isEqualTo: userOne)
-            .whereField("userTwo", isEqualTo: userTwo)
+        guard idOfUsers.count == 2 else {
+            completion(nil)
+            return
+        }
         
-        let variationSecond = db.collection("chatrooms")
-            .whereField("userOne", isEqualTo: userTwo)
-            .whereField("userTwo", isEqualTo: userOne)
+        let idOrdered = idOfUsers.sorted()
         
-        print("1")
-        variationFirst.getDocuments { snapshot, _ in
-            if let snapshot = snapshot {
-                if snapshot.documents.count > 0 {
-                    print("chatroom found between \(userOne) and \(userTwo)")
-                    completion("randomchatroomdoc")
+        db.collection("chatrooms").whereField("users", isEqualTo: idOrdered)
+            .getDocuments { info, error in
+                if let error = error {
+                    print(error.localizedDescription)
+                    completion(nil)
                     return
                 }
-            }
-            print("2")
-            
-            variationSecond.getDocuments { snapshot, _ in
-                if let snapshot = snapshot {
-                    if snapshot.documents.count > 0 {
-                        print("chatroom found between \(userOne) and \(userTwo)")
-                        let roomId = snapshot.documents.first?.documentID
-                        completion(roomId)
-                        return
-                    }
+                
+                if let doc = info?.documents.first {
+                    print("chatroom exists between users")
+                    completion(doc.documentID)
+                } else {
+                    completion(nil)
                 }
-                completion(nil)
             }
-            print("3")
-        }
-        print("4")
     
     }
     
     func getChatrooms() {
-        print("all the chatrooms")
-        db.collection("chatrooms").order(by: "lastUpdated", descending: true).addSnapshotListener { snapshot, error in
+
+        
+        guard let loggedIn = Auth.auth().currentUser else {
+            print("user not logged in")
+            return
+        }
+        
+        let thisId = loggedIn.uid
+        db.collection("chatrooms").whereField("users", arrayContains: thisId).order(by: "lastUpdated", descending: true).addSnapshotListener { snapshot, error in
+            
+            if let error = error {
+                print("error when getting chatrooms: \(error)")
+                return
+            }
             if let snapshot = snapshot?.documents {
                 self.allchatrooms = snapshot.compactMap { doc in
                     try? doc.data(as: ChatroomModel.self)}
             }
         }
+
     }
     
 }
