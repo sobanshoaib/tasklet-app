@@ -6,37 +6,42 @@
 //
 
 import SwiftUI
+import FirebaseAuth
 
 struct ChatroomsView: View {
     @StateObject var chatroomVM = ChatroomViewModel()
     var iduser: String
     
     var body: some View {
-        NavigationView {
+            ScrollView {
+                LazyVStack {
+                    ForEach(chatroomVM.allchatrooms) { chatroom in
+                        NavigationLink(destination: ChatScreenView(personID: iduser, idRoom: chatroom.id)) {
+                            HStack(alignment: .center) {
+                                VStack {
+                                    Text("Convo is between: ")
+                                    Text(chatroom.users.first ?? "unknown")
+                                    Text(chatroom.users.last ?? "unknown")
+                                    Text("Last updated: \(chatroom.lastUpdated)")
+                                }
+                                .background(.green)
+                                
+                                Spacer()
+                                
 
-            List(chatroomVM.allchatrooms) { chatroom in
-                HStack {
-                    VStack {
-                        Text("Convo is between: ")
-                        Text(chatroom.users.first ?? "unknown")
-                        Text(chatroom.users.last ?? "unknown")
-                        Text("Last updated: \(chatroom.lastUpdated)")
-                    }
-                    .background(.green)
-                    
-                    Spacer()
-                    
-                    NavigationLink(destination: ChatScreenView(personID: iduser, idRoom: chatroom.id)) {
-                        Image(systemName: "message.fill")
+                                }
+                            }
+                        }
                     }
                 }
-            }
             .onAppear {
                 chatroomVM.getChatrooms()
             }
+
         }
+            
     }
-}
+
 
 #Preview {
     ChatroomsView(iduser: "randomperson")

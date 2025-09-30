@@ -19,8 +19,14 @@ struct ProfileView: View {
                     Image(systemName: "person.circle")
                         .resizable()
                         .frame(width: 100, height: 100)
-                    Text("Name: \(user.firstName) \(user.lastName)")
-                    Text("Emai: \(user.email)")
+                        .foregroundStyle(Color.white)
+                        .padding(.bottom)
+                    VStack {
+                        Text("Name: \(user.firstName) \(user.lastName)")
+                        Text("Emai: \(user.email)")
+                    }
+                    .foregroundStyle(.white)
+                    .padding(.top)
                 } else {
                     ProgressView("Loading")
                 }

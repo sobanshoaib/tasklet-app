@@ -22,7 +22,7 @@ struct CreatePostView: View {
             Color("NavyBlue")
                 .ignoresSafeArea()
             VStack (alignment: .center){
-                Text("Tasks Available")
+                Text("Create Task")
                     .foregroundStyle(.white)
                     .font(.system(size: 35, design: .rounded))
                     .tracking(4)
@@ -68,16 +68,18 @@ struct CreatePostDetails: View {
     var whichKeyboard: UIKeyboardType = .default
     
     var body: some View {
-        TextField(titlePlaceholder, text: $getField)
-            .keyboardType(whichKeyboard)
-            .onChange(of: getField) { thisText in
-                if whichKeyboard == .numberPad {
-                    getField = thisText.filter { $0.isNumber}
-                }}
-            .foregroundStyle(.white)
-            .frame(width: 300, height: 50)
-            .background(Color("TextBlue"))
-            .padding()
+        VStack {
+            TextField(titlePlaceholder, text: $getField)
+                .keyboardType(whichKeyboard)
+                .onChange(of: getField) { thisText in
+                    if whichKeyboard == .numberPad {
+                        getField = thisText.filter { $0.isNumber}
+                    }}
+                .foregroundStyle(.white)
+                .frame(width: 300, height: 50)
+                .background(Color("TextBlue"))
+                .padding()
+        }
         
     }
 }
