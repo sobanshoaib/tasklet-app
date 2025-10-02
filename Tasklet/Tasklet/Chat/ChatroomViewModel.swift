@@ -136,8 +136,27 @@ class ChatroomViewModel: ObservableObject {
                 self.allchatrooms = snapshot.compactMap { doc in
                     try? doc.data(as: ChatroomModel.self)}
             }
+            
+            for room in self.allchatrooms {
+                if let other = room.users.first(where: { $0 != thisId }) {
+                    self.fetchUserNameIfNeeded(userId: other)
+                }
+            }
         }
 
+    }
+    
+    @Published var userNames: [String: String] = [:]
+
+    private func fetchUserNameIfNeeded(userId: String) {
+        if userNames[userId] != nil { return }
+        UserService.shared.getOtherProfile(userId: userId) { user in
+            guard let user = user else { return }
+            let fullName = "\(user.firstName) \(user.lastName)".trimmingCharacters(in: .whitespaces)
+            DispatchQueue.main.async {
+                self.userNames[userId] = fullName.isEmpty ? user.firstName : fullName
+            }
+        }
     }
     
 }

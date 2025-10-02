@@ -13,30 +13,40 @@ struct ChatroomsView: View {
     var iduser: String
     
     var body: some View {
+        ZStack {
+            Color("NavyBlue")
+                .ignoresSafeArea()
             ScrollView {
                 LazyVStack {
+                    Text("Chat List")
+                        .foregroundStyle(.white)
+                        .font(.system(size: 35, design: .rounded))
+                        .tracking(4)
                     ForEach(chatroomVM.allchatrooms) { chatroom in
                         NavigationLink(destination: ChatScreenView(personID: iduser, idRoom: chatroom.id)) {
-                            HStack(alignment: .center) {
+                            HStack {
                                 VStack {
-                                    Text("Convo is between: ")
-                                    Text(chatroom.users.first ?? "unknown")
-                                    Text(chatroom.users.last ?? "unknown")
-                                    Text("Last updated: \(chatroom.lastUpdated)")
+                                    let otherUserId = chatroom.users.first(where:
+                                        { $0 != iduser }) ?? ""
+                                    Text(chatroomVM.userNames[otherUserId] ?? "user known")
                                 }
-                                .background(.green)
-                                
                                 Spacer()
-                                
-
-                                }
                             }
+                            .padding()
+//                            .padding([.leading, .trailing])
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 8)
+                    .stroke(Color.aqua, lineWidth: 3)
+                                )
                         }
                     }
                 }
+                .padding([.leading, .trailing])
+            }
             .onAppear {
                 chatroomVM.getChatrooms()
             }
+        }
 
         }
             

@@ -61,13 +61,13 @@ struct LoginView: View {
                     
                     HStack {
                         Text("Don't have an account?")
-                            .foregroundStyle(.blue)
+                            .foregroundStyle(.white)
 
                         Button {
                             clickRegister = true
                         } label: {
                             Text("Register")
-                                .foregroundStyle(.white)
+                                .foregroundStyle(.blue)
                                 .underline()
                         }
                     }

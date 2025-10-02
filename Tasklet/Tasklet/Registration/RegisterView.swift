@@ -67,12 +67,13 @@ struct RegisterView: View {
                     
                     HStack {
                         Text("Already have an account?")
+                            .foregroundStyle(.white)
 
                         Button {
                             clickLogin = true
                         } label: {
                             Text("Login")
-                                .foregroundStyle(.white)
+                                .foregroundStyle(.blue)
                                 .underline()
                         }
                     }

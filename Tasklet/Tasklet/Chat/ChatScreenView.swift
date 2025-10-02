@@ -22,39 +22,44 @@ struct ChatScreenView: View {
     }
     
     var body: some View {
-        VStack {
-            ScrollView {
-                VStack (alignment: .leading) {
-                    ForEach(chatVM.messages) {message in
-                        HStack {
-                            if message.userId == personID {
-                                Spacer()
-                                Text(message.content)
-                                    .padding()
-                                    .background(Color.blue)
-                                    .cornerRadius(8)
-                                    .foregroundStyle(Color.white)
-                            } else {
-                                Text(message.content)
-                                    .padding()
-                                    .background(Color.gray)
-                                    .cornerRadius(10)
-                                    .foregroundStyle(Color.white)
-                                Spacer()
+        ZStack {
+            Color("NavyBlue")
+                .ignoresSafeArea()
+            VStack {
+                ScrollView {
+                    VStack (alignment: .leading) {
+                        ForEach(chatVM.messages) {message in
+                            HStack {
+                                if message.userId == personID {
+                                    Spacer()
+                                    Text(message.content)
+                                        .padding()
+                                        .background(Color.blue)
+                                        .cornerRadius(8)
+                                        .foregroundStyle(Color.white)
+                                } else {
+                                    Text(message.content)
+                                        .padding()
+                                        .background(Color.gray)
+                                        .cornerRadius(10)
+                                        .foregroundStyle(Color.white)
+                                    Spacer()
+                                }
                             }
+                            .padding()
                         }
                     }
                 }
-            }
-            HStack {
-                TextField("Enter message", text: $textContent)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                Button("Send") {
-                    chatVM.sendMessage(content: textContent, userId: personID)
-                    textContent = ""
+                HStack {
+                    TextField("Enter message", text: $textContent)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                    Button("Send") {
+                        chatVM.sendMessage(content: textContent, userId: personID)
+                        textContent = ""
+                    }
                 }
+                .padding()
             }
-            .padding()
         }
     }
 }

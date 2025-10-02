@@ -15,6 +15,10 @@ struct ProfileView: View {
             Color("NavyBlue")
                 .ignoresSafeArea()
             VStack {
+                Text("Profile")
+                    .foregroundStyle(.white)
+                    .font(.system(size: 35, design: .rounded))
+                    .tracking(4)
                 if let user = userService.user {
                     Image(systemName: "person.circle")
                         .resizable()
@@ -26,7 +30,7 @@ struct ProfileView: View {
                         Text("Emai: \(user.email)")
                     }
                     .foregroundStyle(.white)
-                    .padding(.top)
+                    .padding([.top, .bottom])
                 } else {
                     ProgressView("Loading")
                 }
